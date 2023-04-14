@@ -1,18 +1,42 @@
-import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { Button } from "react-native";
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
-  SectionList,
-  TouchableOpacity,
 } from "react-native";
 
 export default function App() {
+
+  const Stack = createNativeStackNavigator();
+
+  const Home = () => {
+    return(
+      <View style={styles.container}>
+        <Text style={{fontSize:30}}>This is Home Page</Text>
+      </View>
+    );
+  }
+  const Login = (props) => {
+    return(
+      <View style={styles.container}>
+        <Text style={{fontSize:30}}>This is Home Page</Text>
+        <Button title="Home" onPress={()=>{
+          props.navigation.navigate("Home");
+        }}/>
+      </View>
+
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Home' component={Home}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
