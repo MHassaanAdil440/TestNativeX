@@ -7,5 +7,12 @@ const Customstyles = StyleSheet.create({
       justifyContent: "center",
       marginTop: 100,
     },
+    textinput: {
+        borderColor:'blue',
+        borderWidth:3,
+        padding:10,
+        fontSize:24
+
+    }
   });
   export default Customstyles;

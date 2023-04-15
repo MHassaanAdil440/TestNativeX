@@ -1,7 +1,7 @@
 import { View, Text,Button } from "react-native";
 import CustomStyles from "./CustomStyles";
 import { useState } from "react";
-const PropsScreen = () => {
+const PropsScreen = (props) => {
     const [name, setName] = useState("default");
     return(
       <View style={CustomStyles.container}>
@@ -10,6 +10,10 @@ const PropsScreen = () => {
             setName("bruce")
         }}/>
         <This name = {name} />
+        <Button title="Text input tab" 
+        onPress={()=>{
+            props.navigation.navigate("TextInput")
+        }}/>
       </View>
 
     );
