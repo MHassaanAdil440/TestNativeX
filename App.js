@@ -1,56 +1,24 @@
-import { StyleSheet, View, Text } from "react-native";
-import Screen1 from "./Screens/Screen1";
-import Screen2 from "./Screens/Screen2";
-import { useState,useEffect } from "react";
-import axios from "axios";
+import { NavigationContainer } from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import Login from "./Components/Login";
+import Home from "./Components/Home";
+import PropsScreen from "./Components/PropsScreen";
+import TextInputScreen from "./Components/TextInputScreen"
 
 export default function App() {
 
-  const [data, setData] = useState([]);
-
-  useEffect(()=>{
-    axios.get('https://fakestoreapi.com/products')
-      .then(function (response) {
-        console.log('response', response.data);
-        setData(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });  
-  }, []);
+  const Stack = createNativeStackNavigator();
 
   return (
-    <View style={styles.container}>
-      
-      <Screen1/>
-      <Screen2/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Home' component={Home}/>
+        <Stack.Screen name='PropsScreen' component={PropsScreen}/>
+        <Stack.Screen name='TextInput' component={TextInputScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-const ConsoleAPIData = () => {
-  useEffect(() => {
-    axios.get('https://fakestoreapi.com/products')
-      .then(response => {
-        console.log('Products:', response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-  return(
-    <View>
-      <Text>Fetching datat ..</Text>
-    </View>
-  )
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 50
-  },
 
-});
