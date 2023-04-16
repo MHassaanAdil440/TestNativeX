@@ -1,24 +1,32 @@
-import { NavigationContainer } from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import Login from "./Components/Login";
-import Home from "./Components/Home";
-import PropsScreen from "./Components/PropsScreen";
-import TextInputScreen from "./Components/TextInputScreen"
+import { useEffect, useState } from "react";
+import { FlatList } from "react-native";
+import { View,Text } from "react-native";
 
 export default function App() {
+  const [data, setData] = useState([]);
+  const dataFromApi = async () => {
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    let result = await fetch(url);
+    result =await result.json();
+    setData(result);
+  };
+  useEffect(()=>{dataFromApi()}, []);
 
-  const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='Login' component={Login}/>
-        <Stack.Screen name='Home' component={Home}/>
-        <Stack.Screen name='PropsScreen' component={PropsScreen}/>
-        <Stack.Screen name='TextInput' component={TextInputScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View>
+      <Text style={{ fontSize: 30, marginTop:30 }}>Flatlist with API data</Text>
+      {data.length ? (
+        <FlatList
+          data={data}
+          renderItem={({item}) => (
+            <View>
+              <Text>{item.id}</Text>
+              <Text>{item.title}</Text>
+            </View>
+          )}
+        />
+      ) : null}
+    </View>
   );
 }
-
-
