@@ -2,46 +2,39 @@ import { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
 
 export default function App() {
-  const [int, setInt] = useState(0);
-  const [data, setData] = useState(100);
-
-  // useEffect(() => {
-  //   console.warn("int updated");
-  // }, [int]);
-  // useEffect(() => {
-  //   console.warn("data updated");
-  // }, [data,int]);
+  const [data, setData] = useState(true);
   return (
     <View>
       <Text style={{ fontSize: 30, marginTop: 30 }}>
-        {data} Life cycle methods with useEffect:{int}
+       Life cycle methods with useEffect:
       </Text>
       <Button
-        title="update int "
+        title="Toggle"
         onPress={() => {
-          setInt(int + 1);
+          setData(!data);
         }}
         style={{ margin: 5 }}
       />
-      <Button
-        title="update data "
-        onPress={() => {
-          setData(data + 1);
-        }}
-        style={{ margin: 5 }}
-      />
-      <User info={{data,int}}/>
+  {
+    data?<User info={data}/>:null
+  }
+      
     </View>
   );
 }
 const User = (props) => {
+
+  let timer = setInterval(()=>{
+    console.warn("Timer called");
+  },1000);
+
   useEffect(()=>{
-    console.warn("data is updated");
-  },[props.info.data])
+    return () => clearInterval(timer);
+})
+
   return(
 <View>
-    <Text style={{ fontSize: 30, marginTop: 30, color:"orange"}}>Data:{props.info.data}</Text>
-    <Text style={{ fontSize: 30, marginTop: 30, color:"orange"}}>int:{props.info.int}</Text>
+    <Text style={{ fontSize: 30, marginTop: 30, color:"orange"}}>Data:{props.info}</Text>
 </View>
   );
 }
