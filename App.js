@@ -8,9 +8,9 @@ export default function App() {
   // useEffect(() => {
   //   console.warn("int updated");
   // }, [int]);
-  useEffect(() => {
-    console.warn("data updated");
-  }, [data,int]);
+  // useEffect(() => {
+  //   console.warn("data updated");
+  // }, [data,int]);
   return (
     <View>
       <Text style={{ fontSize: 30, marginTop: 30 }}>
@@ -30,6 +30,18 @@ export default function App() {
         }}
         style={{ margin: 5 }}
       />
+      <User info={{data,int}}/>
     </View>
+  );
+}
+const User = (props) => {
+  useEffect(()=>{
+    console.warn("data is updated");
+  },[props.info.data])
+  return(
+<View>
+    <Text style={{ fontSize: 30, marginTop: 30, color:"orange"}}>Data:{props.info.data}</Text>
+    <Text style={{ fontSize: 30, marginTop: 30, color:"orange"}}>int:{props.info.int}</Text>
+</View>
   );
 }
